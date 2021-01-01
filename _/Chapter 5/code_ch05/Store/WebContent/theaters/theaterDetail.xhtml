@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<f:view contentType="text/html">
+	<h:head>
+
+	</h:head>
+
+	<h:body>
+
+		<ui:composition template="/WEB-INF/templates/template.xhtml">
+			<ui:define name="title">
+				<c:set var="item" value="#{theater.find(param['id'])}" scope="request" />
+                    #{item.name}
+                </ui:define>
+
+			<ui:define name="content">
+				<h:form>
+					<p:fieldset legend="#{item.name}" style="margin:10px">
+
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel for="address" value="Address:" />
+							<h:outputText id="address" value="#{item.address}" />
+
+							<p:outputLabel for="city" value="City:" />
+							<h:outputText id="city" value="#{item.city}" />
+
+							<p:outputLabel for="phone" value="Phone:" />
+							<h:outputText id="phone" value="#{item.phoneNumber}" />
+						</h:panelGrid>
+
+						<p:fieldset toggleable="true" legend="Movies" style="margin:10px;background-color:transparent">
+							<p:dataList value="#{movie.movies}" var="item" itemType="circle">
+								<p:column width="100%" colspan="2">
+									<h:commandLink action="/movies/movieDetail.jsf">
+										<h:outputText value="#{item.name}" />
+										<f:param name="id" value="#{item.id}" />
+									</h:commandLink>
+								</p:column>
+							</p:dataList>
+						</p:fieldset>
+
+					</p:fieldset>
+				</h:form>
+
+			</ui:define>
+		</ui:composition>
+
+	</h:body>
+
+</f:view>
+</html>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+<body>
+  <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Home</ui:define>
+    <ui:define name="content">
+      <h:form>
+        <p:growl id="messages" autoUpdate="true" closable="true" />
+        <p:panel header="In Theaters">
+          <p:ring id="basic" value="#{movie.movies}" var="item">
+            <p:outputPanel style="text-align:center;" layout="block">  
+                            #{item.name}
+                            <p:rating />
+            </p:outputPanel>
+          </p:ring>
+        </p:panel>
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</body>
+</html>

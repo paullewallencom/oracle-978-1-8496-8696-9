@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+<body>
+  <ui:composition>
+    <h:head>
+      <style>
+.loginPanel tr,.loginPanel td {
+	border: none;
+	background: transparent;
+	font-size: 9px;
+	padding: 0;
+}
+
+.loginPanel {
+	float: right;
+	right: 50%;
+	margin-right: 5%;
+	padding: 0;
+}
+</style>
+    </h:head>
+    <h:form>
+
+      <h:graphicImage value="/resources/images/movieStoreLogo.png"
+        style="margin: 0px auto;margin-left:2;" height="15%" width="15%" />
+
+      <p:panelGrid columns="2" id="loginPanel" styleClass="loginPanel"
+        rendered="#{request.userPrincipal == null}">
+
+        <p:inputText id="email" required="true" value="#{login.customer.email}"
+          label="E-mail">
+          <p:watermark for="email" value="user@mail.com" />
+        </p:inputText>
+
+        <p:password id="password" required="true" value="#{login.customer.password}"
+          label="Password">
+          <p:watermark for="password" value="password" />
+        </p:password>
+        <div />
+        <p:row>
+          <p:commandButton value="Login" action="#{login.login}" />
+          <p:commandButton id="signupBtn" value="Sign-up" onclick="signupDlg.show()"
+            immediate="true" />
+        </p:row>
+      </p:panelGrid>
+
+      <h:panelGrid columns="2" id="loggedPanel" styleClass="loginPanel" rendered="#{request.userPrincipal != null}">
+        <h:outputLabel value="#{request.userPrincipal}" />
+        <p:commandButton value="Logout" action="#{login.logout}" />
+      </h:panelGrid>
+
+      <p:megaMenu style="height:90%; font-size:12px;">
+        <p:menuitem value="Home" url="/" />
+        <p:menuitem value="Theaters" url="/theaters/theaters.jsf" />
+        <p:menuitem value="Movies" url="/movies/movies.jsf" />
+
+        <f:facet name="options">
+          <p:inputText id="searchText"
+            style="padding: 4px; margin:0px; font-size: 12px; margin-right:10px" />
+          <p:watermark for="searchText" value="Search..." />
+          <p:splitButton value="Search" actionListener="#"
+            style="margin:0px; font-size: 10px;">
+            <p:menuitem value="by Exhibition dates" actionListener="#" />
+            <p:menuitem value="by Movies" actionListener="#" />
+            <p:menuitem value="by Theaters" actionListener="#" />
+            <p:separator />
+            <p:menuitem value="Advanced Search" url="#" />
+          </p:splitButton>
+        </f:facet>
+      </p:megaMenu>
+
+    </h:form>
+
+    <!--  ################ sign up dialog ################ -->
+    <p:dialog id="dialog" header="User Sign-up" widgetVar="signupDlg">
+      <h:form id="signFrm">
+        <h:panelGrid columns="2" cellpadding="5">
+          <h:outputLabel for="name" value="Name" />
+          <p:inputText id="name" required="true" value="#{login.customer.name}" label="name" />
+
+          <h:outputLabel for="email" value="E-mail" />
+          <p:inputText id="email" required="true" value="#{login.customer.email}"
+            label="email" />
+
+          <h:outputLabel for="password" value="Password:" />
+          <h:inputSecret id="password" required="true" value="#{login.customer.password}"
+            label="password" />
+
+          <f:facet name="footer">
+            <p:commandButton id="signup" value="Sign-up"
+              oncomplete="handleSignup(xhr, status, args)" ajax="false"
+              actionListener="#{login.signup}" />
+
+          </f:facet>
+        </h:panelGrid>
+      </h:form>
+    </p:dialog>
+
+  </ui:composition>
+</body>
+</html>

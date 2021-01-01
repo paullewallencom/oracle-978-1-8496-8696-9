@@ -1,0 +1,61 @@
+version: 1
+
+dn: dc=example,dc=com
+objectClass: dcObject
+objectClass: organizationalUnit
+dc: example
+ou: example
+
+dn: ou=people,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: ou=groups,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+dn: cn=robert@example.com,ou=people,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: robert@example.com
+sn: Robert
+mail: robert@example.com
+userPassword:: e1NIQX15Q1QrQ3Y0V2hYM1c5WWVxZkVCRTBtUXRZUHM9
+
+dn: cn=admin,ou=groups,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: admin
+member: cn=superuser@example.com,ou=people,dc=example,dc=com
+ou: admin
+
+dn: cn=john@example.com,ou=people,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: john@example.com
+sn: john
+userPassword:: e1NIQX00MXZzNXNYbTRPaHNwUjBFUU9raWdxbldySW89
+
+dn: ou=users,ou=groups,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: users
+member: cn=john@example.com,ou=people,dc=example,dc=com
+member: cn=robert@example.com,ou=people,dc=example,dc=com
+ou: users
+
+dn: cn=superuser@example.com,ou=people,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: superuser@example.com
+sn: superuser
+userPassword:: e1NIQX00MXZzNXNYbTRPaHNwUjBFUU9raWdxbldySW89
+

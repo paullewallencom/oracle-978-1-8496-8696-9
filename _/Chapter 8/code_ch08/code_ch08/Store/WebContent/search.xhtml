@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+<h:head />
+<h:body>
+  <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Ticket Search</ui:define>
+    <ui:define name="content">
+
+      <p:fieldset legend="Ticket Search">
+        <h:form id="queryForm">
+          <p:growl showDetail="false" />
+          <p:panelGrid columns="2">
+            <h:outputLabel for="theater" value="Theater:" />
+            <p:selectOneMenu id="theater" style="width: 350px;" value="#{search.theater}">
+              <f:selectItem itemLabel="Select one" itemValue="0" />
+              <f:selectItems value="#{search.theaters}" var="n" itemLabel="#{n.name}"
+                itemValue="#{n.id}" />
+            </p:selectOneMenu>
+
+            <h:outputLabel for="movie" value="Movie:" />
+            <p:selectOneMenu id="movie" style="width: 350px;" value="#{search.movie}">
+              <f:selectItem itemLabel="Select one" itemValue="0" />
+              <f:selectItems value="#{search.movies}" var="n" itemLabel="#{n.name}"
+                itemValue="#{n.id}" />
+              <p:ajax process="@this" update="exhibition"
+                listener="#{search.handleMovieChange}" />
+            </p:selectOneMenu>
+
+            <h:outputLabel for="exhibition" value="Exhibition:" />
+            <p:selectOneMenu id="exhibition" value="#{search.exhibition}"
+              style="width: 350px;">
+              <f:selectItem itemLabel="Select one" itemValue="0" />
+              <f:selectItems value="#{search.exhibitions}" var="n" itemLabel="#{n.date}"
+                itemValue="#{n.id}" />
+            </p:selectOneMenu>
+
+            <p:commandButton id="query" update="queryForm" value="Search Seats"
+              action="#{search.query}" />
+
+            <br />
+
+            <p:spacer width="100" height="10" rendered="#{!empty search.seats}" />
+            <p:spacer width="100" height="10" rendered="#{!empty search.seats}" />
+
+            <h:outputLabel for="seats" value="Available seats:"
+              rendered="#{!empty search.seats}" />
+            <p:dataTable id="seats" var="seat" value="#{search.seats}" rowIndexVar="index"
+              rendered="#{!empty search.seats}">
+              <p:column headerText="Type">
+                <h:outputText value="#{search.getSeatDescription(seat.type)}" />
+              </p:column>
+              <p:column headerText="Price">
+                <h:outputText value="#{seat.price}">
+                  <f:convertNumber type="currency" currencySymbol="" />
+                </h:outputText>
+              </p:column>
+              <p:column headerText="Quantity">
+                <p:spinner id="spinnerBasic" value="#{search.quantities[index]}" min="0"
+                  max="99" maxlength="2" size="3" />
+              </p:column>
+            </p:dataTable>
+
+            <p:commandButton id="reserve" update="queryForm" value="Reserve Seats"
+              action="#{search.reserve}" rendered="#{!empty search.seats}" />
+          </p:panelGrid>
+        </h:form>
+      </p:fieldset>
+    </ui:define>
+  </ui:composition>
+</h:body>
+</html>

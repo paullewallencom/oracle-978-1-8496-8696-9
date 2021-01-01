@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Store</display-name>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<env-entry>
+		<env-entry-name>theaterServiceEndpoint</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>http://deathstar:7001/theater/api</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>reservationServiceEndpoint</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>http://deathstar:7001/theater/ReservationService?WSDL</env-entry-value>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>signupUser</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>superuser@example.com</env-entry-value>
+	</env-entry>
+
+	<env-entry>
+		<env-entry-name>signupPassword</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>welcome1</env-entry-value>
+	</env-entry>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>protected</web-resource-name>
+			<url-pattern>/reservation.jsf</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>User</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsf</form-login-page>
+			<form-error-page>/login.jsf</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-role>
+		<role-name>User</role-name>
+	</security-role>
+	<context-param>
+		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>ui-lightness</param-value>
+	</context-param>
+	<welcome-file-list>
+		<welcome-file>index.jsf</welcome-file>
+	</welcome-file-list>
+</web-app>

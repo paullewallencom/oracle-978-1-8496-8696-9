@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<h:body>
+	<p:fieldset legend="Basic Query">
+		<p:panelGrid columns="2">
+			<h:outputLabel for="theater" value="Theater:" />
+			<p:selectOneMenu id="theater" style="width: 350px;"
+				value="#{search.theater}">
+				<f:selectItem itemLabel="Select one" itemValue="0" />
+				<f:selectItems value="#{search.theaters}" var="n"
+					itemLabel="#{n.name}" itemValue="#{n.id}" />
+			</p:selectOneMenu>
+
+			<h:outputLabel for="movie" value="Movie:" />
+			<p:selectOneMenu id="movie" style="width: 350px;"
+				value="#{search.movie}">
+				<f:selectItem itemLabel="Select one" itemValue="0" />
+				<f:selectItems value="#{search.movies}" var="n"
+					itemLabel="#{n.name}" itemValue="#{n.id}" />
+			</p:selectOneMenu>
+		</p:panelGrid>
+	</p:fieldset>
+</h:body>
+</html>

@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: 
+Extension-List: storeBO
+storeBO-Extension-Name: storeBO
+storeBO-Specification-Version: 1.0
+storeBO-Implementation-Version: 1.0.0
+

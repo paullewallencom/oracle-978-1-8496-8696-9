@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+<body>
+  <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Home</ui:define>
+    <ui:define name="content">
+      <center>
+        <p:panel header="Login" style="width: 450px;">
+          <h:form>
+            <p:growl id="messages" autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" rendered="#{request.userPrincipal == null}"
+              style="border:0">
+              <p:outputLabel value="E-mail" for="email" />
+              <p:inputText id="email" required="true" value="#{login.customer.email}"
+                label="E-mail" />
+              <p:outputLabel value="Password" for="password" />
+              <p:password id="password" required="true" value="#{login.customer.password}"
+                label="Password" />
+              <p:commandButton value="Login" action="#{login.login}" />
+              <p:commandButton id="signupBtn" value="Not a user? Sign-up"
+                onclick="signupDlg.show()" immediate="true" />
+
+            </p:panelGrid>
+
+            <h:panelGrid rendered="#{request.userPrincipal != null}">
+              <h:outputLabel value="#{request.userPrincipal}" />
+              <p:commandButton value="Logout" action="#{login.logout}" />
+            </h:panelGrid>
+          </h:form>
+        </p:panel>
+      </center>
+      <!--  ################ sign up dialog ################ -->
+      <p:dialog id="ldialog" header="User Sign-up" widgetVar="signupDlg">
+       <h:form id="lsignFrm">
+          <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="lname" value="Name" />
+            <p:inputText id="lname" required="true" value="#{login.customer.name}"
+              label="lname" />
+              
+            <h:outputLabel for="lemail" value="E-mail" />
+            <p:inputText id="lemail" required="true" value="#{login.customer.email}"
+              label="lemail" />
+
+            <h:outputLabel for="lpassword"  value="Password:" />
+            <h:inputSecret id="lpassword" required="true"
+              value="#{login.customer.password}" label="lpassword" />
+
+            <f:facet name="footer">
+              <p:commandButton id="lsignup" value="Sign-up"
+                oncomplete="handleSignup(xhr, status, args)" ajax="false"
+                actionListener="#{login.signup}" />
+            
+            </f:facet>
+          </h:panelGrid>
+        </h:form>
+      </p:dialog>
+
+      <script type="text/javascript">
+							function handleSignup(xhr, status, args) {
+								if (args.validationFailed) {
+									jQuery('#ldialog').effect("shake", {
+										times : 2
+									}, 100);
+								} else {
+									signupDlg.hide();
+									jQuery('#signupBtn').fadeOut();
+								}
+							}
+						</script>
+    </ui:define>
+  </ui:composition>
+</body>
+</html>

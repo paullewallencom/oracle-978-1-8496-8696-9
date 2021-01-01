@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+  <style>
+body {
+	font-size: 12px;
+}
+</style>
+</h:head>
+<h:body>
+  <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Reservations</ui:define>
+    <ui:define name="content">
+      <h:form>
+        <p:growl showDetail="false" />
+        <p:panel id="tpanel" header="Reservations">
+          <p:dataGrid columns="3" value="#{ticket.tickets}" emptyMessage="You have no reservations yet." var="item">
+            <p:panelGrid style="font-size:12px" columns="2" id="div-#{item.id}">
+              <h:outputLabel for="control" value="Code:" />
+              <h:outputText id="control" value="#{item.control}" />
+              <h:outputLabel for="tname" value="Theater:" />
+              <h:outputText id="tname" value="#{item.theater.name}" />
+              <h:outputLabel for="exhib" value="Exhibition:" />
+              <h:outputText id="exhib" value="#{exhibition.find(item.exhibitionRef).date}">
+                <f:convertDateTime pattern="MMM dd, yyyy hh:mm a" />
+              </h:outputText>
+            </p:panelGrid>
+            <p:commandButton icon="ui-icon-print" style="font-size:12px;" id="print"
+              value="Print" type="button">
+              <p:printer target="div-#{item.id}" />
+            </p:commandButton>
+          </p:dataGrid>
+        </p:panel>
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</h:body>
+</html>

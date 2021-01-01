@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Extension-Name: theaterBO
+Specification-Version: 1.0
+Implementation-Version: 1.0.0
+

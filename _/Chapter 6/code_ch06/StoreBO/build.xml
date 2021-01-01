@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<property name="jarName" value="StoreBO.jar" />
+
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="build/jar" />
+		<jar manifest="src/META-INF/MANIFEST.MF" destfile="build/jar/${jarName}"
+			basedir="build/classes" />
+	</target>
+
+</project>
